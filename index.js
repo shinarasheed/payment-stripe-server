@@ -8,11 +8,10 @@ const port = 3000;
 
 dotenv.config();
 
-//Confirm the API version from your stripe dashboard
 const stripe = Stripe(process.env.SECRET_KEY, { apiVersion: "2020-08-27" });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`app listening at ${port}`);
 });
 
 app.post("/create-payment-intent", async (req, res) => {
