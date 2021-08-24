@@ -16,9 +16,8 @@ app.listen(port, () => {
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
-    const { totalPrice } = req.query;
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalPrice, //lowest denomination of particular currency
+      amount: 1099, //lowest denomination of particular currency
       currency: "usd",
       payment_method_types: ["card"], //by default
     });
@@ -36,13 +35,14 @@ app.post("/create-payment-intent", async (req, res) => {
 
 app.post("/payment-sheet", async (req, res) => {
   // Use an existing Customer ID if this is a returning customer.
+  const { totalPrice } = req.query;
   const customer = await stripe.customers.create();
   const ephemeralKey = await stripe.ephemeralKeys.create(
     { customer: customer.id },
     { apiVersion: "2020-08-27" }
   );
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1099,
+    amount: totalPrice,
     currency: "usd",
     customer: customer.id,
   });
