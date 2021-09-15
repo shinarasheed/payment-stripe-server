@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.status(200).send("stripe payment server running");
+  res.status(200).send("stripe/braintree payment server running");
 });
 
 app.post("/create-payment-intent", async (req, res) => {
