@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+const cors = require("cors");
 const express = require("express");
 const Stripe = require("stripe");
 const braintree = require("braintree");
@@ -21,6 +22,7 @@ app.listen(port, () => {
   console.log(`app listening at ${port}`);
 });
 
+app.use(cors());
 app.use(express.json());
 
 app.post("/create-payment-intent", async (req, res) => {
@@ -85,7 +87,7 @@ app.post("/api/checkout", (req, res) => {
     .sale({
       amount,
       paymentMethodNonce: nonceFromTheClient,
-      // deviceData: deviceDataFromTheClient,
+      // deviceData: deviceDataFromTheClient
       options: {
         submitForSettlement: true,
       },

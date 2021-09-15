@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "braintree": "^3.7.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "stripe": "^8.154.0"
   }
