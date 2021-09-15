@@ -25,6 +25,10 @@ app.listen(port, () => {
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.status(200).send("stripe payment server running");
+});
+
 app.post("/create-payment-intent", async (req, res) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
