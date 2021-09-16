@@ -32,7 +32,7 @@ const gateway = new braintree.BraintreeGateway({
 const stripe = Stripe(process.env.SECRET_KEY, { apiVersion: "2020-08-27" });
 
 app.listen(port, () => {
-  console.log(`server started at ${port}`);
+  console.log(`server running at ${port}`);
 });
 
 app.use(express.json());
