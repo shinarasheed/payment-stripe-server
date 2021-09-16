@@ -10,6 +10,8 @@ const { loginUser, registerUser } = require("./controllers/User");
 
 dotenv.config();
 
+app.use(cors());
+
 connectDB();
 const app = express();
 
@@ -31,7 +33,6 @@ app.listen(port, () => {
   console.log(`server started at ${port}`);
 });
 
-app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
