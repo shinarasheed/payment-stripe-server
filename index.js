@@ -11,6 +11,8 @@ const { loginUser, registerUser } = require("./controllers/User");
 dotenv.config();
 
 connectDB();
+
+//instantiate express app
 const app = express();
 
 app.use(cors());
