@@ -1,13 +1,22 @@
 const dotenv = require("dotenv");
+const colors = require("colors");
+const morgan = require("morgan");
 const cors = require("cors");
 const express = require("express");
 const Stripe = require("stripe");
 const braintree = require("braintree");
-
-const app = express();
-const port = process.env.PORT || 8080;
+const connectDB = require("./config/db");
+const { loginUser, registerUser } = require("./controllers/User");
 
 dotenv.config();
+
+connectDB();
+const app = express();
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+const port = process.env.PORT || 8080;
 
 const gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
@@ -19,7 +28,7 @@ const gateway = new braintree.BraintreeGateway({
 const stripe = Stripe(process.env.SECRET_KEY, { apiVersion: "2020-08-27" });
 
 app.listen(port, () => {
-  console.log(`app listening at ${port}`);
+  console.log(`server started at ${port}`);
 });
 
 app.use(cors());
@@ -103,3 +112,6 @@ app.post("/api/checkout", (req, res) => {
       res.status(500).send(err);
     });
 });
+
+app.post("/api/login", loginUser);
+app.post("/api/register/", registerUser);
