@@ -10,10 +10,10 @@ const { loginUser, registerUser } = require("./controllers/User");
 
 dotenv.config();
 
-app.use(cors());
-
 connectDB();
 const app = express();
+
+app.use(cors());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
